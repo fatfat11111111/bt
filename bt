@@ -1,0 +1,144 @@
+#include <SoftwareSerial.h>
+SoftwareSerial BT(10,11);
+char data = 0;
+
+int red = 3;        // RGB red pin 連接 Arduino pin 11
+int green = 5;      // RGB green pin 連接 Arduino pin 10
+int blue = 6;        // RGB blue pin 連接 Arduino pin 9
+
+int fade_val;
+int DELAY_DURATION = 33;
+
+void setup() {
+  BT.begin(9600);       // 確認藍牙傳輸速率 baud is 9600
+  pinMode(red, OUTPUT);        // Arduino 輸出電壓控制 RGB LED
+  pinMode(green, OUTPUT);
+  pinMode(blue, OUTPUT);
+  analogWrite(red, 0);
+  analogWrite(green, 0);
+  analogWrite(blue, 0);
+}
+void loop() {
+  if( BT.available() > 0 )   
+  {
+    data = BT.read(); 
+    if (data == '0'){
+         analogWrite(red,0);
+         analogWrite(green,0);
+         analogWrite(blue,0);}
+    else if (data == '1'){   
+      OneColor(red, green, blue);
+    }
+    else if (data == '2'){   
+      OneColor(green, red, blue);}
+    else if (data == '3'){   
+      OneColor(blue, red, green);}
+    else if (data == '4'){   
+      TwoColor(red, green, blue );}
+    else if (data == '5'){   
+      TwoColor(red, blue, green);}
+    else if (data == '6'){   
+      ThreeColor(green, blue, red);}
+    else if (data == '7'){   
+      ThreeColor(red, green, blue);}
+    else if (data == '8'){   
+        for (int i=0; i<50; i++)
+        {
+          analogWrite(red, random(255));
+          analogWrite(green, random(255));
+          analogWrite(blue, random(255));
+        }}
+    else if (data == '9'){   
+        for (int i=0; i<50; i++)
+        {
+          analogWrite(red, random(255));
+          analogWrite(green, random(255));
+          analogWrite(blue, random(255));
+          delay(200);
+        }}
+
+   }
+}
+void OneColor(int _on, int _off1, int _off2)
+{
+  analogWrite(_on, 0);
+  analogWrite(_off1, 0);
+  analogWrite(_off2, 0);
+  delay(300);
+  
+  /* darkness -> brightness */
+  for (fade_val=0; fade_val<256; fade_val=fade_val+5)
+  {
+    analogWrite(_on, fade_val);
+    delay(DELAY_DURATION);
+  }
+  /* brightness -> darkness */
+  for (fade_val=255; fade_val>0; fade_val=fade_val-5)
+  {
+    analogWrite(_on, fade_val);
+    delay(DELAY_DURATION);
+  }
+  /* darkness -> brightness */
+  for (fade_val=0; fade_val<256; fade_val=fade_val+5)
+  {
+    analogWrite(_on, fade_val);
+    delay(DELAY_DURATION);
+  }
+}
+
+void TwoColor(int _on1, int _on2, int _off)
+{
+  analogWrite(_on1, 0);
+  analogWrite(_on2, 0);
+  analogWrite(_off, 0);
+  delay(300);
+  
+  for (fade_val=0; fade_val<256; fade_val=fade_val+5)
+  {
+    analogWrite(_on1, fade_val);
+    analogWrite(_on2, fade_val);
+    delay(DELAY_DURATION);
+  }
+  for (fade_val=255; fade_val>0; fade_val=fade_val-5)
+  {
+    analogWrite(_on1, fade_val);
+    analogWrite(_on2, fade_val);
+    delay(DELAY_DURATION);
+  }
+  for (fade_val=0; fade_val<256; fade_val=fade_val+5)
+  {
+    analogWrite(_on1, fade_val);
+    analogWrite(_on2, fade_val);
+    delay(DELAY_DURATION);
+  }
+}
+
+void ThreeColor(int _on1, int _on2, int _on3)
+{
+  analogWrite(_on1, 0);
+  analogWrite(_on2, 0);
+  analogWrite(_on3, 0);
+  delay(300);
+  
+  for (fade_val=0; fade_val<256; fade_val=fade_val+5)
+  {
+    analogWrite(_on1, fade_val);
+    analogWrite(_on2, fade_val);
+    analogWrite(_on3, fade_val);
+    delay(DELAY_DURATION);
+  }
+  for (fade_val=255; fade_val>0; fade_val=fade_val-5)
+  {
+    analogWrite(_on1, fade_val);
+    analogWrite(_on2, fade_val);
+    analogWrite(_on3, fade_val);
+    delay(DELAY_DURATION);
+  }
+  for (fade_val=0; fade_val<256; fade_val=fade_val+5)
+  {
+    analogWrite(_on1, fade_val);
+    analogWrite(_on2, fade_val);
+    analogWrite(_on3, fade_val);
+    delay(DELAY_DURATION);
+  }
+}
