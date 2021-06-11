@@ -2,6 +2,18 @@
 SoftwareSerial BT(10,11);
 char data = 0;
 
+/*
+  BLACK = 0x30,   //ASCII = 0
+  RED = 0x31,     //ASCII = 1
+  GREEN = 0x32,   //ASCII = 2
+  BLUE = 0x33,    //ASCII = 3
+  YELLOW = 0x34,  //ASCII = 4
+  MAGENTA = 0x35, //ASCII = 5
+  CYAN = 0x36,    //ASCII = 6
+  WHITE = 0x37,   //ASCII = 7
+  MIXCOLOR = 0x38 //ASCII = 8
+*/
+
 int red = 3;        // RGB red pin 連接 Arduino pin 11
 int green = 5;      // RGB green pin 連接 Arduino pin 10
 int blue = 6;        // RGB blue pin 連接 Arduino pin 9
