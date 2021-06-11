@@ -14,9 +14,9 @@ char data = 0;
   MIXCOLOR = 0x38 //ASCII = 8
 */
 
-int red = 3;        // RGB red pin 連接 Arduino pin 11
-int green = 5;      // RGB green pin 連接 Arduino pin 10
-int blue = 6;        // RGB blue pin 連接 Arduino pin 9
+int red = 3;        // RGB red pin 連接 Arduino pin 3
+int green = 5;      // RGB green pin 連接 Arduino pin 5
+int blue = 6;        // RGB blue pin 連接 Arduino pin 6
 
 int fade_val;
 int DELAY_DURATION = 33;
